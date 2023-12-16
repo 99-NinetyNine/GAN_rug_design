@@ -24,63 +24,6 @@ def resize_image(image_content, target_size=(256, 256, 3)):
 
 
 import matplotlib.pyplot as plt
-def ApiView(request, *args, **kwargs):
-    if request.method == 'GET':
-        # Display the form
-        form = ImageUploadForm()
-        return render(request, 'index.html', {'form': form})
-
-    elif request.method == 'POST':
-        # Handle form submission
-        form = ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            # Process the image and generate output
-            image_content = form.cleaned_data['image'].read()
-
-            # Resize the image
-            resized_image = resize_image(image_content, target_size=(256, 256, 3))
-
-            # Convert the resized image to a NumPy array
-            
-            resized_array = np.expand_dims(np.array(resized_image), axis=0)
-
-
-            
-            output = generate_images(resized_array)
-
-            import base64
-
-            plt.figure()
-            plt.imshow(output[0])  # Assuming output[0] is a NumPy array representing the image
-            plt.axis('off')
-            
-            # Save the Matplotlib plot to a BytesIO object
-            output_image_bytesio = io.BytesIO()
-            plt.savefig(output_image_bytesio, format='png', bbox_inches='tight')
-            plt.close()
-
-            # Convert the BytesIO object to a base64 string
-            output_image_base64 = base64.b64encode(output_image_bytesio.getvalue()).decode('utf-8')
-
-            input_image_base64 = base64.b64encode(resized_image.tobytes()).decode('utf-8')
-            #output_image_base64 = base64.b64encode(output[0].numpy().tobytes()).decode('utf-8')
-    
-
-            # Pass input and output images to the template
-            return render(request, 'output.html', {'input_image': input_image_base64, 'output_image': output_image_base64})
-        else:
-            # Form is not valid, handle the error
-            return HttpResponse("Form is not valid", status=400)
-
-    else:
-        # Handle other HTTP methods (e.g., PUT, DELETE)
-        return HttpResponse("Method not allowed", status=405)
-
-
-
-
-
-
 
 import base64
 import numpy as np
@@ -89,11 +32,14 @@ import numpy as np
 
 from django.http import JsonResponse
 
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
 def IndexView(request, *args, **kwargs):
     if request.method == 'GET':
         # Return a JSON response with the form data
         form = ImageUploadForm()
-        return JsonResponse({'form': form.fields}, safe=False)
+        return JsonResponse({'image': "upload a image"}, safe=False)
 
     elif request.method == 'POST':
         # Handle form submission
@@ -106,19 +52,23 @@ def IndexView(request, *args, **kwargs):
             resized_image = resize_image(image_content, target_size=(256, 256, 3))
 
             # Convert the resized image to a NumPy array
-            resized_array = np.expand_dims(np.array(resized_image), axis=0)
+            img_array=np.array(resized_image)
+            resized_array = np.expand_dims(img_array/255., axis=0)
 
             # Generate output using the processed image
             output = generate_images(resized_array)
 
-            # Convert the output image to a base64 string
-            output_image_base64 = base64.b64encode(output.numpy().tobytes()).decode('utf-8')
+            # Display the image using Matplotlib
+            img_path = "media/nice.png"
+            plt.imshow(output)
 
-            input_image_base64 = base64.b64encode(resized_image.tobytes()).decode('utf-8')
+            # Save the image to a file
+            plt.axis("off")
+            plt.savefig(img_path)
 
-            # Return a JSON response with the input and output images
-            return JsonResponse({'input_image': input_image_base64, 'output_image': output_image_base64})
 
+            # Return the URL of the saved image
+            return JsonResponse({'url': 'http://127.0.0.1:8000/'+img_path})
         else:
             # Form is not valid, return an error response
             return JsonResponse({'error': 'Form is not valid'}, status=400)

@@ -1,10 +1,24 @@
-virtualenv env
+# Rug design using AI
 
-Windows
+## Setup Instructions
+
+1. **Create a Virtual Environment:**
+   ```bash
+   # On Windows
+   python -m venv env
+
+   # On Linux/Mac
+   python3 -m venv env
+# On Windows
 .\env\Scripts\activate
 
-Linux
+# On Linux/Mac
 source env/bin/activate
 
+pip install -r requirements.txt
 
-pip install Django
+pytohn3 manage.py runserver
+
+
+# API
+the url is retunred.

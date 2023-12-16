@@ -180,12 +180,14 @@ checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
 
 
-
+import numpy as np
 
 def generate_images(sketch):
     prediction = generator(sketch, training=True)
-    plt.imshow(prediction[0]*0.5+0.5)
-    return prediction[0]
+    prediction_array = prediction.numpy()
 
-
+    # Normalize pixel values to the range [0, 1]
+    normalized_prediction = (prediction_array * 0.5) + 0.5
+    squeezed_prediction = np.squeeze(normalized_prediction, axis=0)
+    return squeezed_prediction
 
