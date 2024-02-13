@@ -5,7 +5,7 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
-    path('send_me/', views.IndexView,name="index"),
+    path('send_here/', views.IndexView,name="index"),
     path('admin/', admin.site.urls),
 ]
 
