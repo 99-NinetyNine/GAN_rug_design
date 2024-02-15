@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import ImageUploadForm
-#from .ai import generate_10_images
+from .ai import generate_10_images
 
 from PIL import Image
 import numpy as np
@@ -46,8 +46,8 @@ def IndexView(request, *args, **kwargs):
         # Handle form submission
         form = ImageUploadForm(request.POST, request.FILES)
         
-        print(form)
         if form.is_valid():
+            print("ok")
             # Process the image and generate output
             image_content = form.cleaned_data['image'].read()
             # Resize the image
@@ -58,6 +58,8 @@ def IndexView(request, *args, **kwargs):
             resized_array = np.expand_dims(img_array/255., axis=0)
 
             # Generate output using the processed image
+            
+            #return JsonResponse({'image': "upload a image"}, safe=False)
             outputs = generate_10_images(resized_array)
 
             # Get the current timestamp for filename uniqueness
@@ -87,7 +89,7 @@ def IndexView(request, *args, **kwargs):
             return JsonResponse(json_response, status=200, safe=False)
         
         else:
-            print(form.errors)
+            print(form.errors, "not ok")
             # Form is not valid, return an error response
             return JsonResponse({'error': 'Form is not valid'}, status=400)
 
