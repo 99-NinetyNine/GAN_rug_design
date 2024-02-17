@@ -82,7 +82,10 @@ def get_2_nice_designs(image):
     
 
     # Load TF Hub module.
-    hub_module = hub.load('./model/')
+    import os
+    from django.conf import settings
+    model_path = os.path.join(settings.BASE_DIR, 'api/model/')
+    hub_module = hub.load(model_path)
 
     ##URL SPECIFICATIONS
     style_images = get_some_random_designs()
