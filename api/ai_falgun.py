@@ -95,10 +95,12 @@ def get_2_nice_designs(image):
     else:
        imgs = [image,] ##just some fallback ##change later r,n. no better ideas in my mind
     
-    pair_A  =   [(image, item) for item in imgs]
-    pair_B  =   [(item, image) for item in imgs]
+    pair_A  =   [[image, item] for item in imgs]
+    pair_B  =   [[item, image] for item in imgs]
     
-    image_pairs = pair_A + pair_B
+    image_pairs = []
+    image_pairs.extend(pair_A)
+    image_pairs.extend(pair_B)
     
     
     ###OUTPUT 
@@ -114,6 +116,6 @@ def get_2_nice_designs(image):
         outputs = hub_module(tf.constant(content_image), tf.constant(style_image))
         stylized_image = tf.squeeze(outputs[0], axis=0)
         output_filenames.append(stylized_image)
-        
+
     return output_filenames
         
