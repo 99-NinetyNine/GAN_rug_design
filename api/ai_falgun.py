@@ -63,7 +63,7 @@ def get_some_random_designs(some=10):
 
     
     if not files:
-        print(f"No files found in directory: {directory_path}")
+        print(f"No files found in directory: {model_path}")
         return None
     num_files = min(some, len(files))
     random_files = random.sample(files, num_files)
