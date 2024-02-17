@@ -89,7 +89,7 @@ def IndexView(request, *args, **kwargs):
                 # Visualize input images and the generated stylized image.
                 timestamp = int(time.time())
 
-                filename = f"media/generated_files/stylized_{timestamp}.jpg"
+                filename = f"stylized_{timestamp}.jpg"
                 filenames.append(filename)
 
                 # Construct the full path including the base path
@@ -104,7 +104,7 @@ def IndexView(request, *args, **kwargs):
                 
             json_response = {
                 "status":True,
-                "urls":['http://127.0.0.1:8000/'+ fName for fName in filenames],
+                "urls":['http://127.0.0.1:8000/media/generated_files/'+fName for fName in filenames],
             }
             
             
