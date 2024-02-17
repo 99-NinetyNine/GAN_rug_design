@@ -107,15 +107,6 @@ def IndexView(request, *args, **kwargs):
                 "urls":['http://127.0.0.1:8000/'+ fName for fName in filenames],
             }
             
-
-
-
-            json_response = {
-                "status":True,
-                #"urls_256":['http://127.0.0.1:8000/'+ fName for fName in filenames_100],
-                #"urls_400":['http://127.0.0.1:8000/'+ fName for fName in filenames_400],
-                "urls":['http://127.0.0.1:8000/'+ fName for fName in filenames_400],
-            }
             
             # Return the URL of the saved image
             return JsonResponse(json_response, status=200, safe=False)
