@@ -119,7 +119,14 @@ def get_2_nice_designs(image):
         timestamp = int(time.time())
 
         filename = f"stylized_{timestamp}.jpg"
-        filepath = os.path.join('../media/generated_files/', filename)  # Replace with your desired save directory
+
+        # Construct the full path including the base path
+        filepath = os.path.join(settings.MEDIA_ROOT, 'generated_files', filename)
+
+        # Ensure the folder exists
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+        # Save the stylized image using tf.keras.preprocessing.image.save_img
         tf.keras.preprocessing.image.save_img(filepath, stylized_image)
         
         output_filenames.append(filename)
