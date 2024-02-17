@@ -99,7 +99,7 @@ def IndexView(request, *args, **kwargs):
                 os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
                 # Save the stylized image using tf.keras.preprocessing.image.save_img
-                from tf.keras.preprocessing.image import save_img
+                from tensorflow.keras.preprocessing.image import save_img
                 save_img(filepath, stylized_image)
                 
             json_response = {
