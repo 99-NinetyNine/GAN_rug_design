@@ -2,9 +2,23 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import ImageUploadForm
 from .ai import generate_10_images
+from .ai_falgun import get_2_nice_designs
 
 from PIL import Image
 import numpy as np
+
+
+import matplotlib.pyplot as plt
+
+import base64
+import numpy as np
+
+
+
+from django.http import JsonResponse
+
+from django.views.decorators.csrf import csrf_exempt
+import time
 
 import io
 # Function to resize an image
@@ -19,21 +33,14 @@ def resize_image(image_content, target_size=(256, 256, 3)):
     # If the image has an alpha channel, remove it
     if target_size[2] == 3 and image_in_memory.mode == 'RGBA':
         resized_img = resized_img.convert('RGB')
+    val = int(time.time())
+    saved_path=   '../media/user_uplodas/{val}.jpg'
+    resized_img.save(saved_path)
 
-    return resized_img
-
-
-import matplotlib.pyplot as plt
-
-import base64
-import numpy as np
+    return resized_img,saved_path
 
 
 
-from django.http import JsonResponse
-
-from django.views.decorators.csrf import csrf_exempt
-import time
     
 @csrf_exempt
 def IndexView(request, *args, **kwargs):
@@ -51,7 +58,7 @@ def IndexView(request, *args, **kwargs):
             # Process the image and generate output
             image_content = form.cleaned_data['image'].read()
             # Resize the image
-            resized_image = resize_image(image_content, target_size=(256, 256, 3))
+            resized_image, saved_path = resize_image(image_content, target_size=(256, 256, 3))
 
             # Convert the resized image to a NumPy array
             img_array=np.array(resized_image)
@@ -60,29 +67,24 @@ def IndexView(request, *args, **kwargs):
             # Generate output using the processed image
             
             #return JsonResponse({'image': "upload a image"}, safe=False)
-            outputs = generate_10_images(resized_array)
+            print(saved_path)
+            ##DCGAN
+            #filenames_100    = generate_10_images(resized_array)
+            
 
-            # Get the current timestamp for filename uniqueness
-            timestamp = int(time.time())
+            ##pix2pix model
+            filenames_400 =   get_2_nice_designs(saved_path)
+            
+            
 
-            # List to store the generated filenames
-            filenames = []
 
-            for i, img in enumerate(outputs):
-                # Create a unique filename based on timestamp and index
-                filename = f"media/gGen_{timestamp}_{i}.png"
-                filenames.append(filename)
-
-                # Convert the image to PIL Image (assuming 'img' is a NumPy array)
-                pil_image = Image.fromarray((img * 255).astype(np.uint8))
-
-                # Save the image
-                pil_image.save(filename)
 
 
             json_response = {
                 "status":True,
-                "urls":['http://127.0.0.1:8000/'+ fName for fName in filenames],
+                #"urls_256":['http://127.0.0.1:8000/'+ fName for fName in filenames_100],
+                #"urls_400":['http://127.0.0.1:8000/'+ fName for fName in filenames_400],
+                "urls":['http://127.0.0.1:8000/'+ fName for fName in filenames_400],
             }
             
             # Return the URL of the saved image

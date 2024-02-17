@@ -192,12 +192,19 @@ def generate_images(sketch, gGen=None):
     squeezed_prediction = np.squeeze(prediction_array, axis=0)
     return squeezed_prediction
 
+import time
+from PIL import Image
 
 def generate_10_images(sketch):
-  res = []
+    filenames = []
 
-  for i in range(10):
-    gGen =  generators[i]
-    prediction = generate_images(sketch, gGen)
-    res.append(prediction)
-  return res
+    for i in range(10):
+      gGen =  generators[i]
+      prediction = generate_images(sketch, gGen)
+      timestamp = int(time.time())
+      filename = f"media/generated_files/gGen_{timestamp}_{i}.png"
+      filenames.append(filename)
+      pil_image = Image.fromarray((prediction * 255).astype(np.uint8))
+      pil_image.save(filename)
+
+    return filenames

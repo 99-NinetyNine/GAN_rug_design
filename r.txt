@@ -1,3 +1,4 @@
+
 absl-py==2.0.0
 asgiref==3.7.2
 astunparse==1.6.3
@@ -37,3 +38,5 @@ tensorflow==2.15.0.post1
 tensorflow-estimator==2.15.0
 tensorflow-io-gcs-filesystem==0.34.0
 urllib3==2.1.0
+
+tensorflow-hub

@@ -4,11 +4,12 @@
 *.pyc
 __pycache__
 db.sqlite3
-media
+media/generated_files/*
+media/user_uploads/*
 
 # Backup files # 
 *.bak 
-
+*.ipynb
 ve
 env
 venv
