@@ -129,7 +129,7 @@ def get_2_nice_designs(image):
         # Save the stylized image using tf.keras.preprocessing.image.save_img
         tf.keras.preprocessing.image.save_img(filepath, stylized_image)
         
-        output_filenames.append(filepath)
+        output_filenames.append("media/generated_files/"+filepath)
         
     
     return output_filenames
