@@ -56,8 +56,10 @@ def get_some_random_designs(some=10):
     import glob
     import random
 
-    directory_path = '../media/good_designs'
-    files = glob.glob(os.path.join(directory_path, '*'))
+    from django.conf import settings
+    #directory_path = '../media/good_designs'
+    model_path = os.path.join(settings.BASE_DIR, 'media/good_designs')
+    files = glob.glob(os.path.join(model_path, '*'))
 
     
     if not files:
@@ -103,7 +105,7 @@ def get_2_nice_designs(image):
     image_pairs.extend(pair_B)
     
     print(image_pairs)
-    
+
     
     ###OUTPUT 
     output_filenames    =   []
