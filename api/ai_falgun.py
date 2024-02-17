@@ -58,7 +58,7 @@ def get_some_random_designs(some=10):
 
     from django.conf import settings
     #directory_path = '../media/good_designs'
-    model_path = os.path.join(settings.BASE_DIR, 'media/good_designs')
+    model_path = os.path.join(settings.BASE_DIR, 'media/good_designs/')
     files = glob.glob(os.path.join(model_path, '*'))
 
     
