@@ -22,6 +22,7 @@ import time
 from django.conf import settings
 
 import io
+import os
 # Function to resize an image
 # Function to resize an image
 def resize_image(image_content, target_size=(256, 256, 3)):
