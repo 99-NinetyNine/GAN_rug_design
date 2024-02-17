@@ -102,6 +102,8 @@ def get_2_nice_designs(image):
     image_pairs.extend(pair_A)
     image_pairs.extend(pair_B)
     
+    print(image_pairs)
+    
     
     ###OUTPUT 
     output_filenames    =   []
