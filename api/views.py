@@ -83,7 +83,26 @@ def IndexView(request, *args, **kwargs):
 
             ##pix2pix model
             filenames_400 =   get_2_nice_designs(saved_path)
+                
+
+            for img in filenames_400:
+                # Visualize input images and the generated stylized image.
+                timestamp = int(time.time())
+
+                filename = f"stylized_{timestamp}.jpg"
+
+                # Construct the full path including the base path
+                filepath = os.path.join(settings.MEDIA_ROOT, 'generated_files', filename)
+
+                # Ensure the folder exists
+                os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+                # Save the stylized image using tf.keras.preprocessing.image.save_img
+                tf.keras.preprocessing.image.save_img(filepath, stylized_image)
+                
+                output_filenames.append("media/generated_files/"+filepath)
             
+        
             
 
 

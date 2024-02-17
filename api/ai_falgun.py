@@ -113,24 +113,7 @@ def get_2_nice_designs(image):
 
         outputs = hub_module(tf.constant(content_image), tf.constant(style_image))
         stylized_image = tf.squeeze(outputs[0], axis=0)
-
-
-        # Visualize input images and the generated stylized image.
-        timestamp = int(time.time())
-
-        filename = f"stylized_{timestamp}.jpg"
-
-        # Construct the full path including the base path
-        filepath = os.path.join(settings.MEDIA_ROOT, 'generated_files', filename)
-
-        # Ensure the folder exists
-        os.makedirs(os.path.dirname(filepath), exist_ok=True)
-
-        # Save the stylized image using tf.keras.preprocessing.image.save_img
-        tf.keras.preprocessing.image.save_img(filepath, stylized_image)
+        output_filenames.append(stylized_image)
         
-        output_filenames.append("media/generated_files/"+filepath)
-        
-    
     return output_filenames
         
