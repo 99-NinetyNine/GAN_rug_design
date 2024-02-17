@@ -58,8 +58,8 @@ def get_some_random_designs(some=10):
 
     from django.conf import settings
     #directory_path = '../media/good_designs'
-    model_path = os.path.join(settings.BASE_DIR, 'media/good_designs/')
-    files = glob.glob(os.path.join(model_path, '*'))
+    model_path = os.path.join(settings.BASE_DIR, 'media/')
+    files = glob.glob(os.path.join(model_path, 'good_designs/*'))
 
     
     if not files:
@@ -91,7 +91,7 @@ def get_2_nice_designs(image):
 
     ##URL SPECIFICATIONS
     style_images = get_some_random_designs()
-
+    
     if style_images is not None:
         imgs    = style_images
     else:
