@@ -19,6 +19,7 @@ from django.http import JsonResponse
 
 from django.views.decorators.csrf import csrf_exempt
 import time
+from django.conf import settings
 
 import io
 # Function to resize an image
@@ -33,11 +34,18 @@ def resize_image(image_content, target_size=(256, 256, 3)):
     # If the image has an alpha channel, remove it
     if target_size[2] == 3 and image_in_memory.mode == 'RGBA':
         resized_img = resized_img.convert('RGB')
-    val = int(time.time())
-    saved_path=   '../media/user_uplodas/{val}.jpg'
-    resized_img.save(saved_path)
+    
+    # Use current timestamp as a unique filename
+    timestamp = int(time.time())
+    filename = f'{timestamp}.jpg'
 
-    return resized_img,saved_path
+    # Construct the full path using Django's settings
+    save_path = os.path.join(settings.MEDIA_ROOT, 'user_uploads', filename)
+
+    # Save the resized image to the full path
+    resized_img.save(save_path)
+
+    return resized_img, save_path
 
 
 
