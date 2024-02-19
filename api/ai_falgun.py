@@ -80,7 +80,7 @@ def get_2_nice_designs(image):
     ##CONSTANTS
     style_img_size = (256, 256)  # Recommended to keep it at 256.
     output_image_size = 400  # @param {type:"integer"}
-    content_img_size = (400, 600)
+    content_img_size = (600, 600)
     
 
     # Load TF Hub module.
