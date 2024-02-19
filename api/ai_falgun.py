@@ -98,14 +98,11 @@ def get_2_nice_designs(image):
        imgs = [image,] ##just some fallback ##change later r,n. no better ideas in my mind
     
     pair_A  =   [[image, item] for item in imgs]
-    pair_B  =   [[item, image] for item in imgs]
+    
     
     image_pairs = []
     image_pairs.extend(pair_A)
-    image_pairs.extend(pair_B)
     
-    print(image_pairs)
-
     
     ###OUTPUT 
     output_filenames    =   []

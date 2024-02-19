@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
     path('send_here/', views.IndexView,name="index"),
+    path('send_fun/', views.IndexFunnyView,name="index_fun"),
     path('admin/', admin.site.urls),
 ]
 
