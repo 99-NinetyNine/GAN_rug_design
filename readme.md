@@ -1,4 +1,6 @@
 # Rug design using AI
+# Output
+![alt](https://github.com/99-NinetyNine/GAN_rug_design/blob/master/1.png)
 
 ## Setup Instructions
 
