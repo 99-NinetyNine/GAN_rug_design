@@ -28,7 +28,3 @@ source env/bin/activate
 pip install -r requirements.txt
 
 pytohn3 manage.py runserver
-
-
-# API
-the url is retunred.
