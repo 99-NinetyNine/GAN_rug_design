@@ -51,29 +51,24 @@ def show_n(images, titles=('',)):
     plt.title(titles[i] if len(titles) > i else '')
   plt.show()
 
-
-def get_some_random_designs(some=10):
-    import glob
-    import random
-
+def get_some_random_designs(index=0, some=5):
     from django.conf import settings
-    #directory_path = '../media/good_designs'
-    model_path = os.path.join(settings.BASE_DIR, 'media/')
-    files = glob.glob(os.path.join(model_path, 'good_designs/*'))
+    model_path = os.path.join(settings.BASE_DIR, 'media', 'good_designs')
+    files = os.listdir(model_path)
 
-    
     if not files:
         print(f"No files found in directory: {model_path}")
         return None
-    num_files = min(some, len(files))
-    random_files = random.sample(files, num_files)
 
-    return random_files
+    start_index = min(index, len(files) - 1)
+    end_index = min(start_index + some, len(files))
+    selected_files = files[start_index:end_index]
 
+    return [os.path.join(model_path, filename) for filename in selected_files]
 
 import time
 # @title Load example images  { display-mode: "form" }
-def get_2_nice_designs(image):
+def get_2_nice_designs(image,index=0):
   ## we style the image randomly by selecting one of design of pinterst
   ## And user may like (S= his design, C= Pinterst ) or reverse
   ## these are two diffrent results as seen in Colab during experimentaion
@@ -90,7 +85,7 @@ def get_2_nice_designs(image):
     hub_module = hub.load(model_path)
 
     ##URL SPECIFICATIONS
-    style_images = get_some_random_designs()
+    style_images = get_some_random_designs(index)
     
     if style_images is not None:
         imgs    = style_images

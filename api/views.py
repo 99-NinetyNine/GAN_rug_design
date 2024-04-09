@@ -69,6 +69,8 @@ def IndexView(request, *args, **kwargs):
             print("ok")
             # Process the image and generate output
             image_content = form.cleaned_data['image'].read()
+            index   =   int(form.cleaned_data.get("index",0))
+
             # Resize the image
             resized_image, saved_path = resize_image(image_content, target_size=(256, 256, 3))
 
@@ -85,7 +87,7 @@ def IndexView(request, *args, **kwargs):
             
 
             ##pix2pix model
-            filenames_400 =   get_2_nice_designs(saved_path)
+            filenames_400 =   get_2_nice_designs(saved_path,index)
                 
             filenames=[]
             timestamp = int(time.time())
@@ -112,9 +114,11 @@ def IndexView(request, *args, **kwargs):
                 x   =   'http://127.0.0.1:8000/media/generated_files/'+filename
                 urls.append(x)
                 
+                
             json_response = {
                 "status":True,
                 "urls":urls,
+                "next_index":int(index)+5,
             }
             
             
