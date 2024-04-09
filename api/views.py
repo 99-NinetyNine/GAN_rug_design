@@ -70,7 +70,7 @@ def IndexView(request, *args, **kwargs):
             # Process the image and generate output
             image_content = form.cleaned_data['image'].read()
             index   =   int(form.cleaned_data.get("index",0))
-
+            print(index,"index was")
             # Resize the image
             resized_image, saved_path = resize_image(image_content, target_size=(256, 256, 3))
 
@@ -90,11 +90,24 @@ def IndexView(request, *args, **kwargs):
             filenames_400 =   get_2_nice_designs(saved_path,index)
                 
             filenames=[]
-            timestamp = int(time.time())
+            import random
+            import string
+
+            def generate_random_string(length):
+                # Define the characters to choose from for the random string
+                characters = string.ascii_letters + string.digits  # You can add other characters if needed
+                
+                # Generate the random string by choosing characters randomly from the defined set
+                random_string = ''.join(random.choice(characters) for _ in range(length))
+                
+                return random_string
+
+            # Example usage: Generate a random string of length 10
+            random_string = generate_random_string(10)
             for index,stylized_image in enumerate(filenames_400):
                 # Visualize input images and the generated stylized image.
 
-                filename = f"style_{timestamp}_{index}.jpg"
+                filename = f"style_+"+random_string+f"_{index}.jpg"
                 filenames.append(filename)
                 
                 
