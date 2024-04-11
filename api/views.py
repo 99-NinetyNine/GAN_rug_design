@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import ImageUploadForm
+from .forms import ImageUploadForm,ImageUploadFileForm
 from .ai import generate_10_images
 from .ai_falgun import get_2_nice_designs
 
@@ -27,6 +27,9 @@ import os
 # Function to resize an image
 def t(r):
     return render(r,'f.html',{})
+
+def t2(r):
+    return render(r,'f3.html',{})
 
 def resize_image(image_content, target_size=(256, 256, 3)):
     # Create an in-memory file-like object from the uploaded content
@@ -214,3 +217,64 @@ def IndexFunnyView(request, *args, **kwargs):
     else:
         # Handle other HTTP methods (e.g., PUT, DELETE)
         return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+
+
+
+import os
+from django.conf import settings
+
+
+
+
+
+    
+@csrf_exempt
+def PaletteView(request, *args, **kwargs):
+    if request.method == 'GET':
+        # Return a JSON response with the form data
+        form = ImageUploadFileForm()
+        return JsonResponse({'image': "upload a image"}, safe=False)
+
+    elif request.method == 'POST':
+        # Handle form submission
+        form = ImageUploadFileForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            #/generated_files/filename all
+            image_path_name = form.cleaned_data['filename_to_render_as_palette']
+            #//
+            from .palette import create_images_results
+            
+            full_save_path = os.path.join(settings.MEDIA_ROOT, image_path_name)
+            print("full path", full_save_path, type(full_save_path))
+
+            arg1=[full_save_path,]
+            arge2=["pillow_median_cut",]
+            filenames   =   create_images_results(arg1, arge2)
+            urls = []
+            for filename in filenames:
+                x   =   'http://127.0.0.1:8000/media/'+filename
+                urls.append(x)
+                
+                
+            json_response = {
+                "status":True,
+                "urls":urls,
+            }
+            
+            
+            # Return the URL of the saved image
+            return JsonResponse(json_response, status=200, safe=False)
+        
+        else:
+            print(form.errors, "not ok")
+            # Form is not valid, return an error response
+            return JsonResponse({'error': 'Form is not valid'}, status=400)
+
+    else:
+        # Handle other HTTP methods (e.g., PUT, DELETE)
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+

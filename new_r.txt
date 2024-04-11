@@ -1,0 +1,4 @@
+imageio
+opencv-python
+Pillow
+pyclustering

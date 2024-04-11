@@ -7,3 +7,6 @@ class ImageUploadForm(forms.Form):
 class FunImageUploadForm(forms.Form):
     image = forms.ImageField()
     image_2 = forms.ImageField()
+
+class ImageUploadFileForm(forms.Form):
+    filename_to_render_as_palette    =   forms.CharField(max_length=300)
