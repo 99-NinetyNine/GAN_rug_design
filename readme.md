@@ -10,11 +10,19 @@
 |              | [![GAN Design 4](https://github.com/99-NinetyNine/GAN_rug_design/blob/master/media/generated_files/stylized_1708189054.jpg)](https://github.com/99-NinetyNine/GAN_rug_design/blob/master/media/generated_files/stylized_1708189054.jpg) |
 
 
+### See more outputs
+To see more generated files by our system visit [Here](https://github.com/99-NinetyNine/GAN_rug_design/tree/master/media/generated_files) .
+
+
 ### Project Report
 [Available Here](https://github.com/99-NinetyNine/GAN_rug_design/blob/master/carpetDesignWithGAN.pdf)
 
 
 ## Run Project 
+### Clone Project
+```bash
+   git clone https://github.com/99-NinetyNine/GAN_rug_design.git
+```
 ### Create a Virtual Environment
    ```bash
       # On Windows
@@ -40,3 +48,8 @@
    ```bash
       python3 manage.py runserver
    ```
+
+
+
+## Link to the frontend application is provided here:
+[Github](https://github.com/surajniroula789/rug-Frontend/)
