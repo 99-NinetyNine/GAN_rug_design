@@ -19,6 +19,11 @@ pip install -r requirements.txt
 
 pytohn3 manage.py runserver
 
+## User Uploads 
 
-# API
-the url is retunred.
+## GAN Enhanced Designs
+
+
+## Project Report
+[Available Here](https://github.com/99-NinetyNine/GAN_rug_design/blob/master/carpetDesignWithGAN.pdf)
+
