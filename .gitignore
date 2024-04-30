@@ -4,8 +4,8 @@
 *.pyc
 __pycache__
 db.sqlite3
-media/generated_files/*
-media/user_uploads/*
+#media/generated_files/*
+#media/user_uploads/*
 api/model
 # Backup files # 
 *.bak 
