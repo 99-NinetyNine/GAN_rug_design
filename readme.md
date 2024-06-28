@@ -12,10 +12,11 @@
 
 ### See more outputs
 To see more generated files by our system visit [Here](https://github.com/99-NinetyNine/GAN_rug_design/tree/master/media/generated_files) .
-
-
 ### Project Report
 [Available Here](https://github.com/99-NinetyNine/GAN_rug_design/blob/master/carpetDesignWithGAN.pdf)
+
+### Project Report Slide
+[Available Here](https://github.com/99-NinetyNine/GAN_rug_design/blob/master/REPORT_on_CARPET_DESIGN_using_GAN.pdf)
 
 
 ## Run Project 
