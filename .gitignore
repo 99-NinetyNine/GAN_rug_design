@@ -4,6 +4,11 @@
 *.pyc
 __pycache__
 db.sqlite3
+outputs
+good_designs
+good_designs/*
+
+outputs/*
 #media/generated_files/*
 #media/user_uploads/*
 api/model
