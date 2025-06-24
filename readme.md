@@ -47,7 +47,7 @@ To see more generated files by our system visit [Here](https://github.com/99-Nin
 ```
 ### Run 
    ```bash
-      python3 manage.py runserver
+      uvicorn server:app --reload
    ```
 
 

@@ -20,7 +20,7 @@ app = FastAPI()
 
 
 # Serve frontend static files
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+# app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 # Stylize endpoint and all other logic...
 
