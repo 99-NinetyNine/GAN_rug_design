@@ -18,7 +18,8 @@ To see more generated files by our system visit [Here](https://github.com/99-Nin
 ### Project Report Slide
 [Available Here](https://github.com/99-NinetyNine/GAN_rug_design/blob/master/REPORT_on_CARPET_DESIGN_using_GAN.pdf)
 
-
+### Pre-Print
+[ResearchGate](https://doi.org/10.13140/RG.2.2.18593.67683)
 ## Run Project 
 ### Clone Project
 ```bash
